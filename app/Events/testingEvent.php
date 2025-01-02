@@ -30,7 +30,7 @@ class testingEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('channel-name'),
+            new Channel('testChannel'),
         ];
     }
 }
