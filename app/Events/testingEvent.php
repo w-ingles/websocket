@@ -9,6 +9,8 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
+
 
 class testingEvent implements ShouldBroadcast
 {
@@ -17,9 +19,12 @@ class testingEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public $msg;
+    public function __construct($msg)
     {
-        //
+        $this->msg = $msg;
+         // Emitir o log
+         Log::info('Mensagem recebida no construtor:', ['msg' => $msg]);
     }
 
     /**
@@ -32,5 +37,12 @@ class testingEvent implements ShouldBroadcast
         return [
             new Channel('testChannel'),
         ];
+    }
+
+    public function broadcastWith():array
+    {
+            return [
+                'msgsss' => $this->msg
+            ];
     }
 }
